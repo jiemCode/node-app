@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ""
+  repository: 54.209.36.3:5000/node-app
   tag: "latest"
   pullPolicy: IfNotPresent
 

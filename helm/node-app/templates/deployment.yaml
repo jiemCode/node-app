@@ -12,6 +12,8 @@ spec:
       labels:
         app: {{ include "node-app.name" . }}
     spec:
+      imagePullSecrets:
+        - name: nexus-regcred
       containers:
         - name: node-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
