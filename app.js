@@ -2,8 +2,17 @@ const express = require("express");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const ENV = process.env.APP_ENV || "dev";
+const ENV = process.env.APP_ENV || "prod";
 const VERSION = process.env.APP_VERSION || "local";
+
+app.get("/", (req, res) => {
+  res.json({
+    app: "node-cicd-app",
+    environment: ENV,
+    version: VERSION,
+    status: "running"
+  });
+});
 
 app.get("/", (req, res) => {
   res.json({
