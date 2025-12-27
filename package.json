@@ -7,8 +7,6 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "cross-spawn": "^7.0.6",
-    "express": "^4.19.2",
-    "glob": "^11.1.0"
+    "express": "^4.19.2"
   }
 }
