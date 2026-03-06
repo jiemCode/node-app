@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetcom           # ← match APP_NAME in Jenkinsfile
+  namespace: default
+  labels:
+    app: fleetcom
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fleetcom
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0          # Zero-downtime deploys
+  template:
+    metadata:
+      labels:
+        app: fleetcom
+    spec:
+      containers:
+        - name: fleetcom
+          image: jiem117/fleetcom:latest   # Jenkins overwrites the tag
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          # Basic health checks so Kubernetes restarts unhealthy pods
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
