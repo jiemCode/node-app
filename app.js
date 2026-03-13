@@ -28,5 +28,5 @@ app.get("/health", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`==>> App running on port ${PORT} [env=${ENV}, version=${VERSION}]`);
+  console.log(`#>> App running on port ${PORT} [env=${ENV}, version=${VERSION}]`);
 });
